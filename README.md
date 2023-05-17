@@ -17,7 +17,6 @@
 - Current position in FEN. History of moves in history[ ]
 - List of correct moves in dailymoves[ ]
 
-#
 ## UI 
 
 - Chessboard needs to be main focus
@@ -26,7 +25,6 @@
 - Help or information button
 - Github button
 
-#
 ## Tools
 - Django 
 - React
