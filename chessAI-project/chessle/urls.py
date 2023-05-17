@@ -3,5 +3,5 @@ from rest_framework.routers import DefaultRouter
 from .views import MoveListView
 
 router = DefaultRouter()
-router.register(r'moveList', MoveListView, basename='moveList')
+router.register(r'moves', MoveListView, basename='moves')
 urlpatterns = router.urls
