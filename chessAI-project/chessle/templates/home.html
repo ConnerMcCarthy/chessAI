@@ -1,8 +1,24 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/chessboard-1.0.0.css' %}">
 <html>
     <head>
         <title>Empty Head</title>
     </head>
+
     <body>
-        <h1>Empty Body</h1>
+        <div id = "board1" style="width: 400px"></div> 
+        
+        
+        <script src ="{% static 'js/jquery-3.7.0.js' %}"></script>
+        <script src="{% static 'js/chessboard-1.0.0.js' %}"></script> 
+        <!-- <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js" integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD" crossorigin="anonymous"></script> -->
+        <script type="text/javascript">
+            var boardconfig = {
+                draggable: true,
+                dropOffBoard: 'snapback',
+                position: 'start'
+            }
+            var board1 = Chessboard('board1', boardconfig)
+        </script>
     </body>
 </html>

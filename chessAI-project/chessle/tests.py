@@ -9,7 +9,6 @@ class HomeTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'empty body')
 
-
 # Create your tests here.
 
 
