@@ -20,10 +20,11 @@
 
 ## Tools
 - Django
-- npm and venv 
+- npm and venv
+- webpack
 - chessboard.js
 - chess.js
-  - typescript
+  typescript
 - Docker (TODO)
 
 
