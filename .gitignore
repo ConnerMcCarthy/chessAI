@@ -1,4 +1,5 @@
 /venv-chess
+/node_modules
 
 #Django
 *.log
@@ -7,3 +8,6 @@
 __pycache__
 db.sqlite3
 media
+
+*.json
+webpack.config.js
