@@ -1,4 +1,5 @@
 {% load static %}
+
 <link rel="stylesheet" href="{% static 'css/chessboard-1.0.0.css' %}">
 <link rel="stylesheet" href="{% static 'css/chessle.css' %}">
 <html>
@@ -8,22 +9,37 @@
 
     <body>
         <div id = "board1" class='chessle-board'></div> 
-        
-        
         <script src ="{% static 'js/jquery-3.7.0.js' %}"></script>
-        <script src="{% static 'js/chessboard-1.0.0.js' %}"></script> 
-
-        <script type="text/javascript">
-            var boardconfig = {
-                draggable: true,
-                dropOffBoard: 'snapback',
-                position: 'start'
-            }
-            var board1 = Chessboard('board1', boardconfig)
-        </script>
+        <script src="{% static 'js/chessboard-1.0.0.js' %}"></script>
+        <!-- <script type="module" src="{% static 'js/chess.js' %}"></script> -->
+        <script src="{% static 'js/bundle.js' %}"></script>
 
         <div id = "guess-board"></div>
         <script src="{% static 'js/setupboard.js' %}"></script>
-
+        <!-- <script src="{% static 'js/moveValidation.js' %}"></script> -->
+        
+        <script type="text/javascript">
+            function onDrop( source, target, piece, newPos, oldPos, orientation ) { 
+                console.log('Source: ' + source)
+                console.log('Target: ' + target)
+                console.log('Piece: ' + piece)
+                console.log('New position: ' + Chessboard.objToFen(newPos))
+                console.log('Old position: ' + Chessboard.objToFen(oldPos))
+                console.log('Orientation: ' + orientation)
+                console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+    
+                //Add move to guess board
+                insertGuess(target)
+            }
+            
+            var boardconfig = {
+                draggable: true,
+                dropOffBoard: 'snapback',
+                position: 'start',
+                onDrop: onDrop
+            }
+            var board1 = Chessboard('board1', boardconfig)
+        </script> 
+        
     </body>
 </html>

@@ -35,16 +35,9 @@ function insertGuess (nextMove) {
     let row = document.getElementsByClassName("move-row")[NUMBER_OF_GUESSES - guessesRemaining]
     let box = row.children[moveIndex]
     box.textContent = nextMove
-    box.classList.add(filledBox)
+    box.classList.remove(filledBox)
     currentGuess.push(nextMove)
     moveIndex += 1
 }
 
 initBoard()
-insertGuess("e4")
-insertGuess("e5")
-insertGuess("Nf3")
-insertGuess("Nc6")
-insertGuess("Nxe5")
-insertGuess("Nxe5")
-insertGuess("d4")
