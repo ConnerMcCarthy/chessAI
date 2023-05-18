@@ -17,16 +17,15 @@
 - Current position in FEN. History of moves in history[ ]
 - List of correct moves in dailymoves[ ]
 
-#
 ## UI 
 
 - Chessboard needs to be main focus
 - Moves below the board (might change with more features)
-- Refresh or Reset button
+- Reset button
 - Help or information button
 - Github button
+- Continue from position on Lichess button
 
-#
 ## Tools
 - Django 
 - React
