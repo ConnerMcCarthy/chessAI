@@ -4,7 +4,7 @@ let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let moveIndex = 0;
 
-function initBoard() {
+function initGuessBoard() {
     let board = document.getElementById("guess-board");
 
     for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
@@ -40,4 +40,47 @@ function insertGuess (nextMove) {
     moveIndex += 1
 }
 
-initBoard()
+// update the board position after the piece snap
+// for castling, en passant, pawn promotion
+function onDragStart (source, piece, position, orientation) {
+    // do not pick up pieces if the game is over
+    if (game.game_over()) return false
+
+    // only pick up pieces for the side to move
+    if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+        (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+        return false
+    }
+}
+
+function onSnapEnd () {
+    board.position(game.pgn())
+}
+
+function onDrop (source, target) {
+    // see if the move is legal
+    var move = game.move({
+        from: source,
+        to: target,
+        promotion: 'q' // NOTE: always promote to a queen for example simplicity
+    })
+    var pgnString = game.pgn().split(' ')
+    var len = pgnString.length
+    console.log(pgnString)
+    insertGuess(pgnString[len-1])
+    // illegal move
+    if (move === null) return 'snapback'
+}
+
+
+var game = new Chess()
+console.log(game.fen())
+var config = {
+    draggable: true,
+    position: 'start',
+    onDrop: onDrop,
+    onSnapEnd: onSnapEnd
+}
+var board = Chessboard('myBoard', config)
+
+initGuessBoard()
