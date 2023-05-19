@@ -42,7 +42,6 @@ function addGuess (nextMove) {
     box.textContent = nextMove
     box.classList.remove(filledBox)
     currentGuess.push(nextMove)
-    console.log(currentGuess)
     moveIndex += 1
 }
 

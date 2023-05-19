@@ -1,19 +1,26 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'css/chessboard-1.0.0.css' %}">
-<link rel="stylesheet" href="{% static 'css/chessle.css' %}">
 <html>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chessboard-1.0.0.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chessle.css' %}">
+    
     <head>
         <title>Chess AI: Chessle</title>
     </head>
 
     <body>
-        
-        <div id = "chess-board" class='chessle-board'></div>
-        <div id = "guess-board"></div>
+        <div style="position: absolute; left: 30%;">
+            <div id = "chess-board" style="width:600px"></div>
 
-        <button onclick = "checkGuessHTML()" >Guess</button>
-        <button onclick = "removeGuessHTML()" >Undo</button>
+            <button onclick = "checkGuessHTML()" class="chessle-button"> Guess </button>
+            <button onclick = "removeGuessHTML()" class="chessle-button"> Undo </button>
+
+            <div id = "guess-board"></div>
+        </div>
+        
+        
+
+        
         
         <script src="{% static 'js/jquery-3.7.0.js' %}"></script> 
         <script src="{% static 'js/chessboard-1.0.0.js' %}"></script>
@@ -21,7 +28,7 @@
         <script src="{% static 'js/setupboard.js' %}"></script>
         
         <!-- ---------------------------------------------------------------------- -->
-        <!-- Defines chessle logic for submitting full guesses or removing a guess. -->
+        <!-- Defines chessle logic. Submitting full guesses or removing a guess. -->
         <!-- ---------------------------------------------------------------------- -->
         <script>
             // resets the game if the guess is wrong
@@ -74,6 +81,7 @@
                 // illegal move
                 if (move === null) return 'snapback'
 
+                // Adds the last half move in the current PNG
                 var pgnString = game.pgn().split(' ')
                 var len = pgnString.length
                 addGuess(pgnString[len-1])
