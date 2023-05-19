@@ -1,13 +1,16 @@
 const NUMBER_OF_GUESSES = 3;
-const NUMBER_OF_MOVES = 8;
+const NUMBER_OF_MOVES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let moveIndex = 0;
 
-correctGuessString = "e4 c5 Nf3 Nc6 g3 g6 Bg2 Bg7"
-correctGuess = correctGuessString.split(' ')
-intialPosition = "1. e4 c5"
+//correctGuessString = "e4 c5 Nf3 Nc6 g3 g6 Bg2 Bg7"
+var correctGuessString = "e4 c5 Nf3 Nc6 g3 g6"
+var correctGuess = correctGuessString.split(' ')
+var intialPositionString = "e4 c5"
+var intialPosition = correctGuessString.split(' ')
 
+//TODO add CORRECT guesses to a list, for loop that list to add correct guesses to board. 
 
 function initGuessBoard() {
     let guessboard = document.getElementById("guess-board");
@@ -51,7 +54,7 @@ function removeGuess() {
     if (moveIndex < 1) {
         return
     }
-    
+
     let row = document.getElementsByClassName("move-row")[NUMBER_OF_GUESSES - guessesRemaining]
     let box = row.children[moveIndex - 1]
 

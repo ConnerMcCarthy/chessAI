@@ -11,3 +11,6 @@ media
 
 *.json
 webpack.config.js
+
+Dockerfile
+*.yaml
