@@ -11,14 +11,42 @@
         
         <div id = "chess-board" class='chessle-board'></div>
         <div id = "guess-board"></div>
+
+        <button onclick = "checkGuessHTML()" >Guess</button>
+        <button onclick = "removeGuessHTML()" >Undo</button>
         
         <script src="{% static 'js/jquery-3.7.0.js' %}"></script> 
         <script src="{% static 'js/chessboard-1.0.0.js' %}"></script>
         <script src="{% static 'js/chess-0.12.0.js' %}"></script>
         <script src="{% static 'js/setupboard.js' %}"></script>
         
-        <!-- Defines standard chess logic. Adds guess to box after move/drop -->
+        <!-- ---------------------------------------------------------------------- -->
+        <!-- Defines chessle logic for submitting full guesses or removing a guess. -->
+        <!-- ---------------------------------------------------------------------- -->
         <script>
+            // resets the game if the guess is wrong
+            function checkGuessHTML() {
+                if (checkGuess() == false) {
+                    //runs board.start() with a delay to match the box coloring
+                    setTimeout(()=> {
+                        board.start()
+                    }, 850)
+                    game.reset()
+                }
+            }
+            
+            function removeGuessHTML() {
+                removeGuess()
+                game.undo()
+                board.position(game.fen())
+            }
+        </script>
+        
+        <!-- ---------------------------------------------------------------------- -->
+        <!-- Defines standard chess logic. Adds guess to box after valid move/drop  -->
+        <!-- ---------------------------------------------------------------------- -->
+        <script>
+            
             function onDragStart (source, piece, position, orientation) {
                 // do not pick up pieces if the game is over
                 if (game.game_over()) return false
@@ -40,7 +68,7 @@
                 var move = game.move({
                     from: source,
                     to: target,
-                    promotion: 'q' // NOTE: always promote to a queen for example simplicity
+                    promotion: 'q' // NOTE: always promote to a queen
                 })
                 
                 // illegal move
@@ -48,11 +76,11 @@
 
                 var pgnString = game.pgn().split(' ')
                 var len = pgnString.length
-                console.log(pgnString)
-                insertGuess(pgnString[len-1])
+                addGuess(pgnString[len-1])
             }
-            
-            //Sets up game state and board
+            // -------------------------------------------------------------------------
+            // Sets up starting game state and board
+            // -------------------------------------------------------------------------
             const game = new Chess()
 
             var config = {
@@ -62,8 +90,27 @@
                 onSnapEnd: onSnapEnd
             }
             var board = Chessboard('chess-board', config)
+
+            game.move('e4')
+            game.move('c5')
+            game.move('Nf3')
+            game.move('Nc6')
+            game.move('g3')
+            game.move('g6')
+            game.move('Bg2')
+
+            addGuess('e4')
+            addGuess('c5')
+            addGuess('Nf3')
+            addGuess('Nc6')
+            addGuess('g3')
+            addGuess('g6')
+            addGuess('Bg2')
+            
+            board.position('r1bqkbnr/pp1ppp1p/2n3p1/2p5/4P3/5NP1/PPPP1PBP/RNBQK2R b KQkq - 1 4')
            
         </script>
-        
+
+
     </body>
 </html>
