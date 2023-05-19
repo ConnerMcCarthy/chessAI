@@ -1,0 +1,67 @@
+.guess-board {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+  
+.move-box {
+    border: 2px solid gray;
+    border-radius: 3px;
+    margin: 2px;
+    font-size: 2rem;
+    font-weight: 600;
+    height: 5rem;
+    width: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filled-box {
+    border: 2px solid black;
+    font-size: 3rem;
+}
+
+.filled-box-small {
+    border: 2px solid black;
+    font-size: 2rem;
+}
+  
+.move-row {
+    display: flex;
+}
+
+.chessle-board {
+    margin: auto;
+    padding: 10px;
+    align-items: center;
+  }
+
+.chessle-button {
+    box-shadow:inset 0px 1px 0px 0px #caefab;
+    background:linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
+    background-color:#77d42a;
+    border-radius:6px;
+    border:1px solid #268a16;
+    display:inline-block;
+    cursor:pointer;
+    color:#306108;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #aade7c;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+.chessle-button:hover {
+	background:linear-gradient(to bottom, #5cb811 5%, #77d42a 100%);
+	background-color:#5cb811;
+}
+.chessle-button:active {
+	position:relative;
+	top:1px;
+}

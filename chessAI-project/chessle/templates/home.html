@@ -1,24 +1,124 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/chessboard-1.0.0.css' %}">
+
 <html>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chessboard-1.0.0.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chessle.css' %}">
+    
     <head>
-        <title>Empty Head</title>
+        <title>Chess AI: Chessle</title>
     </head>
 
     <body>
-        <div id = "board1" style="width: 400px"></div> 
+        <div style="position: absolute; left: 30%;">
+            <div id = "chess-board" style="width:600px"></div>
+
+            <button onclick = "checkGuessHTML()" class="chessle-button"> Guess </button>
+            <button onclick = "removeGuessHTML()" class="chessle-button"> Undo </button>
+
+            <div id = "guess-board"></div>
+        </div>
         
         
-        <script src ="{% static 'js/jquery-3.7.0.js' %}"></script>
-        <script src="{% static 'js/chessboard-1.0.0.js' %}"></script> 
-        <!-- <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js" integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD" crossorigin="anonymous"></script> -->
-        <script type="text/javascript">
-            var boardconfig = {
-                draggable: true,
-                dropOffBoard: 'snapback',
-                position: 'start'
+
+        
+        
+        <script src="{% static 'js/jquery-3.7.0.js' %}"></script> 
+        <script src="{% static 'js/chessboard-1.0.0.js' %}"></script>
+        <script src="{% static 'js/chess-0.12.0.js' %}"></script>
+        <script src="{% static 'js/setupboard.js' %}"></script>
+        
+        <!-- ---------------------------------------------------------------------- -->
+        <!-- Defines chessle logic. Submitting full guesses or removing a guess. -->
+        <!-- ---------------------------------------------------------------------- -->
+        <script>
+            // resets the game if the guess is wrong
+            function checkGuessHTML() {
+                if (checkGuess() == false) {
+                    //runs board.start() with a delay to match the box coloring
+                    setTimeout(()=> {
+                        board.start()
+                    }, 850)
+                    game.reset()
+                }
             }
-            var board1 = Chessboard('board1', boardconfig)
+            
+            function removeGuessHTML() {
+                removeGuess()
+                game.undo()
+                board.position(game.fen())
+            }
         </script>
+        
+        <!-- ---------------------------------------------------------------------- -->
+        <!-- Defines standard chess logic. Adds guess to box after valid move/drop  -->
+        <!-- ---------------------------------------------------------------------- -->
+        <script>
+            
+            function onDragStart (source, piece, position, orientation) {
+                // do not pick up pieces if the game is over
+                if (game.game_over()) return false
+
+                // only pick up pieces for the side to move
+                if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
+                    (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
+                    return false
+                }
+            }
+            // update the board position after the piece snap
+            // for castling, en passant, pawn promotion
+            function onSnapEnd () {
+                board.position(game.pgn())
+            }
+
+            function onDrop (source, target) {
+                // see if the move is legal
+                var move = game.move({
+                    from: source,
+                    to: target,
+                    promotion: 'q' // NOTE: always promote to a queen
+                })
+                
+                // illegal move
+                if (move === null) return 'snapback'
+
+                // Adds the last half move in the current PNG
+                var pgnString = game.pgn().split(' ')
+                var len = pgnString.length
+                addGuess(pgnString[len-1])
+            }
+            // -------------------------------------------------------------------------
+            // Sets up starting game state and board
+            // -------------------------------------------------------------------------
+            const game = new Chess()
+
+            var config = {
+                draggable: true,
+                position: 'start',
+                onDrop: onDrop,
+                onSnapEnd: onSnapEnd
+            }
+            var board = Chessboard('chess-board', config)
+
+            game.move('e4')
+            game.move('c5')
+            game.move('Nf3')
+            game.move('Nc6')
+            game.move('g3')
+            game.move('g6')
+            game.move('Bg2')
+
+            addGuess('e4')
+            addGuess('c5')
+            addGuess('Nf3')
+            addGuess('Nc6')
+            addGuess('g3')
+            addGuess('g6')
+            addGuess('Bg2')
+            
+            board.position('r1bqkbnr/pp1ppp1p/2n3p1/2p5/4P3/5NP1/PPPP1PBP/RNBQK2R b KQkq - 1 4')
+           
+        </script>
+
+
     </body>
 </html>

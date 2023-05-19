@@ -3,12 +3,11 @@
 ## Goals 
 
 1. Create website and chessboard :heavy_check_mark:
-2. Match opening moves created with openAI
-3. Add move validation
+2. Match opening moves created with openAI :heavy_check_mark: (TODO: daily generation)
+3. Add move validation and Chessle logic :heavy_check_mark:
 4. Clean UI
 5. Add position descriptions with openAI
 6. Docker and hosting
-7. More chess AI apps other than chessle
 
 ## UI 
 
@@ -21,9 +20,9 @@
 
 ## Tools
 - Django
-- npm and venv
-- webpack
+- venv
 - chessboard.js
 - chess.js
-  typescript
 - Docker (TODO)
+
+
