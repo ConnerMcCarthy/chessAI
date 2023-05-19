@@ -37,9 +37,10 @@
                 if (checkGuess() == false) {
                     //runs board.start() with a delay to match the box coloring
                     setTimeout(()=> {
-                        board.start()
+                        //TODO: set this to a variable position - initialPosition
+                        board.position('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2')
                     }, 850)
-                    game.reset()
+                    game.load('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2')
                 }
             }
             
@@ -68,7 +69,7 @@
             // update the board position after the piece snap
             // for castling, en passant, pawn promotion
             function onSnapEnd () {
-                board.position(game.pgn())
+                board.position(game.fen())
             }
 
             function onDrop (source, target) {
@@ -105,16 +106,14 @@
             game.move('Nf3')
             game.move('Nc6')
             game.move('g3')
-            //game.move('g6')
-            //game.move('Bg2')
+            game.move('g6')
+            game.move('Bg2')
 
-            addGuess('e4')
-            addGuess('c5')
             addGuess('Nf3')
             addGuess('Nc6')
             addGuess('g3')
-            //addGuess('g6')
-            //addGuess('Bg2')
+            addGuess('g6')
+            addGuess('Bg2')
             
             board.position('r1bqkbnr/pp1ppp1p/2n3p1/2p5/4P3/5NP1/PPPP1PBP/RNBQK2R b KQkq - 1 4')
            

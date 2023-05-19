@@ -4,13 +4,16 @@ let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let moveIndex = 0;
 
-//correctGuessString = "e4 c5 Nf3 Nc6 g3 g6 Bg2 Bg7"
-var correctGuessString = "e4 c5 Nf3 Nc6 g3 g6"
-var correctGuess = correctGuessString.split(' ')
-var intialPositionString = "e4 c5"
-var intialPosition = correctGuessString.split(' ')
+let openingString = "e4 c5 Nf3 Nc6 g3 g6 Bg2 Bg7";
+let opening = openingString.split(' ');
 
-//TODO add CORRECT guesses to a list, for loop that list to add correct guesses to board. 
+let correctGuessString = "Nf3 Nc6 g3 g6 Bg2 Bg7";
+let correctGuess = correctGuessString.split(' ');
+
+let intialPositionString = "e4 c5";
+let intialPosition = intialPositionString.split(' ');
+
+//TODO add CORRECT guesses to a list, add for loop to go to the latest correct position. 
 
 function initGuessBoard() {
     let guessboard = document.getElementById("guess-board");
