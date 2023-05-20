@@ -11,6 +11,8 @@
 
 ## UI 
 
+https://imgur.com/a/b9ksDr6
+
 - Chessboard needs to be main focus
 - Move guesses below the board (might change with more features)
 - Reset button
