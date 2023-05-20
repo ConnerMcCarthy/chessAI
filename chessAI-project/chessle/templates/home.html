@@ -9,12 +9,13 @@
     </head>
 
     <body>
+        <div id = "chess-board" style="width:650px; position: relative; left: 32.1%"></div>
+        
         <div style="position: absolute; left: 30%;">
-            <div id = "chess-board" style="width:600px"></div>
-
-            <button onclick = "checkGuessHTML()" class="chessle-button"> Guess </button>
-            <button onclick = "removeGuessHTML()" class="chessle-button"> Undo </button>
-
+            <div id = "buttons" style="position: relative; left: 24.3%;">
+                <button onclick = "checkGuessHTML()" class="chessle-button"> Guess </button>
+                <button onclick = "removeGuessHTML()" class="chessle-button" style="color:red;"> Undo </button>
+            </div>
             <div id = "guess-board"></div>
         </div>
         
@@ -36,9 +37,10 @@
                 if (checkGuess() == false) {
                     //runs board.start() with a delay to match the box coloring
                     setTimeout(()=> {
-                        board.start()
+                        //TODO: set this to a variable position - initialPosition
+                        board.position('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2')
                     }, 850)
-                    game.reset()
+                    game.load('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2')
                 }
             }
             
@@ -67,7 +69,7 @@
             // update the board position after the piece snap
             // for castling, en passant, pawn promotion
             function onSnapEnd () {
-                board.position(game.pgn())
+                board.position(game.fen())
             }
 
             function onDrop (source, target) {
@@ -107,8 +109,6 @@
             game.move('g6')
             game.move('Bg2')
 
-            addGuess('e4')
-            addGuess('c5')
             addGuess('Nf3')
             addGuess('Nc6')
             addGuess('g3')

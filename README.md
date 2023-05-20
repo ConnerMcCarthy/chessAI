@@ -21,8 +21,13 @@
 ## Tools
 - Django
 - venv
-- chessboard.js
-- chess.js
+- chessboard.js 1.0.0
+- chess.js 0.12.0
 - Docker (TODO)
+
+## Files
+
+home.html
+setupboard.js
 
 
