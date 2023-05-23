@@ -1,17 +1,21 @@
-const NUMBER_OF_GUESSES = 3;
+const NUMBER_OF_GUESSES = 5;
 const NUMBER_OF_MOVES = 6;
-let guessesRemaining = NUMBER_OF_GUESSES;
-let currentGuess = [];
-let moveIndex = 0;
+var guessesRemaining = NUMBER_OF_GUESSES;
+var currentGuess = [];
+var moveIndex = 0;
 
-let openingString = "e4 c5 Nf3 Nc6 g3 g6 Bg2 Bg7";
-let opening = openingString.split(' ');
+var openingString = "e4 e6 d4 d5 e5 c5 c3 Nc6";
+var openingString2 = "e4 d6 d4 Nf6 Nc3 g6 Nf3 Bg7"
+var opening = openingString2.split(' ');
+var correctGuess = opening.slice(2)
+var intialPosition = opening.slice(0,2)
 
-let correctGuessString = "Nf3 Nc6 g3 g6 Bg2 Bg7";
-let correctGuess = correctGuessString.split(' ');
+var intialPositionString = intialPosition.join(' ')
+var correctGuessString = correctGuess.join(' ')
 
-let intialPositionString = "e4 c5";
-let intialPosition = intialPositionString.split(' ');
+console.log(correctGuess);
+console.log(intialPosition);
+
 
 //TODO add CORRECT guesses to a list, add for loop to go to the latest correct position. 
 
@@ -113,6 +117,7 @@ function checkGuess () {
             box.style.backgroundColor = moveColor
         }, delay)
     }
+
 
     if (guessString === correctGuessString) {
         alert("You guessed right! Game over!")
