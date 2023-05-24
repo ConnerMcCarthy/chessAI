@@ -8,10 +8,11 @@ var correctGuess = null;
 
 function startChessle( openingString ) {
     initGuessBoard()
+    
     // (1, 2, 3, 4, 5, 6, 7, 8)
     var opening = openingString.split(' ');
     // (3, 4, 5, 6, 7, 8)
-    correctGuess = opening.slice(2);
+    correctGuess = opening.slice(2,NUMBER_OF_MOVES + 2);
     // (1, 2)
     intialPosition = opening.slice(0,2);
 }
@@ -135,4 +136,4 @@ function checkGuess () {
 }
 
 //TODO can remove but this loads the board in the right order
-initGuessBoard()
+//initGuessBoard()

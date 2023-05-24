@@ -24,6 +24,7 @@
                 <div id = "buttons" style="margin-left: 21%;">
                     <button onclick = "checkGuessHTML()" class="chessle-button"> Guess </button>
                     <button onclick = "removeGuessHTML()" class="chessle-button" style="color:red;"> Undo </button>
+                    <button onclick = "requestOpeningHTML()" class="chessle-button" style="color:green;"> New </button>
                 </div>
 
                 
@@ -44,18 +45,22 @@
             // resets the game if the guess is wrong
             function checkGuessHTML() {
                 if (checkGuess() == false) {
-                    //runs board.start() with a delay to match the box coloring
+                    //runs resetGame() with a delay to match the box coloring
                     setTimeout(()=> {
-                        //TODO: set this to a variable position - initialPosition
                         resetGame()
                     }, 850)
                 }
             }
-            
+            // undo last move
             function removeGuessHTML() {
                 removeGuess()
                 game.undo()
                 board.position(game.fen())
+            }
+
+            function requestOpeningHTML() {
+                "{% requestOpening %}"
+                resetGame()
             }
         </script>
         
@@ -116,7 +121,8 @@
             }
             var board = Chessboard('chess-board', config)
             
-            startChessle("{% openingString %}")
+            startChessle("{% requestOpening %}")
+            
 
             game.move(intialPosition[0])
             game.move(intialPosition[1])
