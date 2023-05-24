@@ -1,4 +1,5 @@
 {% load static %}
+{% load opening %}
 
 <html>
     <link rel="stylesheet" type="text/css" href="{% static 'css/chessboard-1.0.0.css' %}">
@@ -114,7 +115,9 @@
                 onSnapEnd: onSnapEnd
             }
             var board = Chessboard('chess-board', config)
-             
+            
+            startChessle("{% openingString %}")
+
             game.move(intialPosition[0])
             game.move(intialPosition[1])
             

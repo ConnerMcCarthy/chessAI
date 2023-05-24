@@ -3,20 +3,18 @@ const NUMBER_OF_MOVES = 6;
 var guessesRemaining = NUMBER_OF_GUESSES;
 var currentGuess = [];
 var moveIndex = 0;
+var intialPosition = null;
+var correctGuess = null;
 
-var openingString = "e4 e6 d4 d5 e5 c5 c3 Nc6";
-var openingString2 = "e4 d6 d4 Nf6 Nc3 g6 Nf3 Bg7"
-var opening = openingString2.split(' ');
-var correctGuess = opening.slice(2)
-var intialPosition = opening.slice(0,2)
-
-var intialPositionString = intialPosition.join(' ')
-var correctGuessString = correctGuess.join(' ')
-
-console.log(correctGuess);
-console.log(intialPosition);
-
-
+function startChessle( openingString ) {
+    initGuessBoard()
+    // (1, 2, 3, 4, 5, 6, 7, 8)
+    var opening = openingString.split(' ');
+    // (3, 4, 5, 6, 7, 8)
+    correctGuess = opening.slice(2);
+    // (1, 2)
+    intialPosition = opening.slice(0,2);
+}
 //TODO add CORRECT guesses to a list, add for loop to go to the latest correct position. 
 
 function initGuessBoard() {
@@ -118,7 +116,7 @@ function checkGuess () {
         }, delay)
     }
 
-
+    let correctGuessString = correctGuess.join(' ')
     if (guessString === correctGuessString) {
         alert("You guessed right! Game over!")
         guessesRemaining = 0
@@ -136,4 +134,5 @@ function checkGuess () {
     }
 }
 
+//TODO can remove but this loads the board in the right order
 initGuessBoard()
