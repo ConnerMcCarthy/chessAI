@@ -18,10 +18,10 @@ def parse_opening(text):
 
 # Call openai and get the response
 @register.simple_tag
-def requestOpening(prompt="A chess opening that starts with d4."):
+def requestOpening(prompt="A kind of random uncommon chess opening."):
     api_path = "./chessle/templatetags/secret.txt"
     openai.api_key = read_api_key(api_path)
-    
+    print(prompt)
     response =  response = openai.ChatCompletion.create(
         model = 'gpt-3.5-turbo',
         messages=[

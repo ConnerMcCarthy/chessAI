@@ -6,8 +6,10 @@ var moveIndex = 0;
 var intialPosition = null;
 var correctGuess = null;
 
+//TODO add CORRECT guesses to a list, add for loop to go to the latest correct position. 
+
 function startChessle( openingString ) {
-    initGuessBoard()
+    //initGuessBoard()
     
     // (1, 2, 3, 4, 5, 6, 7, 8)
     var opening = openingString.split(' ');
@@ -16,7 +18,32 @@ function startChessle( openingString ) {
     // (1, 2)
     intialPosition = opening.slice(0,2);
 }
-//TODO add CORRECT guesses to a list, add for loop to go to the latest correct position. 
+
+function resetChessle() {
+    
+    let rows = document.getElementsByClassName("move-row")
+    //for row in rows
+    for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
+        let row = rows[i]   
+
+        for( let j = 0; j < NUMBER_OF_MOVES; j++) {
+            let box = row.children[j]
+            box.textContent = ""
+            
+            
+            let filledBox = "filled-box"
+            if (box.textContent.length > 3) {
+                filledBox = "filled-box-small"
+            }
+            box.classList.remove(filledBox)
+            box.style.backgroundColor = 'white'
+        }
+        
+    }
+    guessesRemaining = NUMBER_OF_GUESSES
+    currentGuess = []
+    moveIndex = 0
+}
 
 function initGuessBoard() {
     let guessboard = document.getElementById("guess-board");
@@ -49,7 +76,7 @@ function addGuess (nextMove) {
     let row = document.getElementsByClassName("move-row")[NUMBER_OF_GUESSES - guessesRemaining]
     let box = row.children[moveIndex]
     box.textContent = nextMove
-    box.classList.remove(filledBox)
+    box.classList.add(filledBox)
     currentGuess.push(nextMove)
     moveIndex += 1
 }
@@ -136,4 +163,4 @@ function checkGuess () {
 }
 
 //TODO can remove but this loads the board in the right order
-//initGuessBoard()
+initGuessBoard()
