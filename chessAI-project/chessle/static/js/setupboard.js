@@ -30,7 +30,6 @@ function resetChessle() {
             let box = row.children[j]
             box.textContent = ""
             
-            
             let filledBox = "filled-box"
             if (box.textContent.length > 3) {
                 filledBox = "filled-box-small"
@@ -156,11 +155,45 @@ function checkGuess () {
 
         if (guessesRemaining === 0) {
             alert("You've run out of guesses! Game over!")
-            alert(`The right word was: "${correctGuessString}"`)
+            alert('The right word was: "${correctGuessString}"')
         }
         return false
     }
 }
+
+function requestOpening(prompt) {
+    return  fetch('/api/request_opening/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        body: prompt
+    })
+    .then(response => {
+        if(!response.ok) {
+            throw new Error('Not OK')
+        }
+    })
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
 
 //TODO can remove but this loads the board in the right order
 initGuessBoard()

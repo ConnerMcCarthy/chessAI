@@ -38,28 +38,33 @@
   }
 
 .chessle-button {
-    box-shadow:inset 0px 1px 0px 0px #caefab;
-    background:linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
-    background-color:#77d42a;
-    border-radius:6px;
-    border:1px solid #268a16;
-    display:inline-block;
-    cursor:pointer;
-    color:#306108;
-    font-family:Arial;
-    font-size:35px;
-    font-weight:bold;
-    padding:6px 24px;
-    text-decoration:none;
-    text-shadow:0px 1px 0px #aade7c;
-    align-items: center;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 20px;
 }
+
+.chessle-button.undo {
+    background-color:#ff0000;
+}
+
+.chessle-button.submit {
+    background-color:#00cc00;
+}
+
 .chessle-button:hover {
 	background:linear-gradient(to bottom, #5cb811 5%, #77d42a 100%);
 	background-color:#5cb811;
+    opacity: 0.8;
 }
 .chessle-button:active {
 	position:relative;

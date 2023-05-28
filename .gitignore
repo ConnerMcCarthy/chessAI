@@ -14,3 +14,5 @@ webpack.config.js
 
 Dockerfile
 *.yaml
+
+*.txt

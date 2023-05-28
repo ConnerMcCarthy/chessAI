@@ -19,21 +19,23 @@ def parse_opening(text):
 # Call openai and get the response
 @register.simple_tag
 def requestOpening(prompt="A kind of random uncommon chess opening."):
-    api_path = "./chessle/templatetags/secret.txt"
-    openai.api_key = read_api_key(api_path)
+    #api_path = "./analysis/templatetags/secret.txt"
+    #openai.api_key = read_api_key(api_path)
+    openai.api_key = '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'
     print(prompt)
     response =  response = openai.ChatCompletion.create(
         model = 'gpt-3.5-turbo',
         messages=[
             {"role": "system", "content": "You are a chess opening assistant."},
-            {"role": "system", "content": "Always output chess openings in PGN format."},
-            {"role": "system", "content": "Output at least 5 moves."},
+            {"role": "user", "content": "Always output chess openings in PGN format."},
+            {"role": "user", "content": "Always output at least 5 moves."},
+            {"role": "user", "content": "Give me only the PGN."},
             {"role": "user", "content": prompt}
         ]
     )
-    save_response(response['choices'][0]['message']['content'])
+    #save_response(response['choices'][0]['message']['content'])
     opening_string = parse_opening(response['choices'][0]['message']['content'])
-    print(opening_string)
+    print('opening.py ' + response['choices'][0]['message']['content'].strip())
     return opening_string
 
 # Template used in home.html to set up the board
@@ -50,7 +52,7 @@ def read_api_key(api_path):
 
 def save_response(response):
     try:
-        with open('./chessle/templatetags/response.txt', 'w') as file:
+        with open('analysis/templatetags/response.txt', 'w') as file:
             file.write(response)
             return True
     except IOError:

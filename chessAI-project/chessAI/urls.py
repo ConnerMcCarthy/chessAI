@@ -22,3 +22,5 @@ urlpatterns = [
     path('api/', include('analysis.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home' )
 ]
+
+
