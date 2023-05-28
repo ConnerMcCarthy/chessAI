@@ -10,32 +10,31 @@
 
     <body>
         
-        <div style="width: 90%; margin-left: 10%; margin-right: 10%; margin-top: 5%;">
-            
-            <div id = "left-containter" style="width: 50%; float: left">
-                <div id = "chess-board" style="width:80%;"></div>
-            </div>
-
-            <div id = "right-container "style="margin-left: 50%">
-
-                <div id = "guess-board" style="margin-top: 15px;"></div>
-
-                <div id = "buttons" style="margin-left: 21%;">
-                    <button onclick = "checkGuessHTML()" class="chessle-button"> Guess </button>
-                    <button onclick = "removeGuessHTML()" class="chessle-button" style="color:red;"> Undo </button>
-                    <button onclick = "requestOpeningHTML()" class="chessle-button" style="color:green;"> New Opening </button>
-                </div>
-
-                <div id = "input" style="margin-left: 34%;">
-                    <input type = "text" id="myinput"> </input>
-                </div>
-
-                
-            </div>
-        </div>
         
 
+        <div class="container">
+            
+            <div class = "left-container">
+                <div id = "chess-board"></div>
+            </div>
 
+            <div id = "buttons" class="buttons">
+                <button onclick = "checkGuessHTML()" class="chessle-button guess"> Guess </button>
+                <button onclick = "removeGuessHTML()" class="chessle-button undo"> Undo </button>
+                <button onclick = "cheat()" class="chessle-button load"> Cheat </button>
+                <!-- TODO <button class="chessle-button load "> Load Correct </button> TODO -->
+            </div>
+            
+            <div class ="right-container">
+                <div id = "guess-board"></div>
+            </div>
+        </div>
+
+        <div class = "about"> 
+            ChessAI Chessle v0.1 (not window size friendly)
+        </div>
+        
+        
         <script src="{% static 'js/jquery-3.7.0.js' %}"></script> 
         <script src="{% static 'js/chessboard-1.0.0.js' %}"></script>
         <script src="{% static 'js/chess-0.12.0.js' %}"></script>
@@ -56,6 +55,11 @@
             }
             // undo last move
             function removeGuessHTML() {
+                
+                // Prevents undoing the first two moves
+                if (game.fen() === intialFen) {
+                    return
+                }
                 removeGuess()
                 game.undo()
                 board.position(game.fen())
@@ -65,9 +69,21 @@
                 let input = document.getElementById("myinput")
                 //print(opening_string)
                 resetChessle()
-                startChessle(opStr)
+                startChessle(opening_string)
                 resetGame()
+            }
+
+            // Restarts the game and guesses the right answer
+            function cheat() {
                 
+                requestOpeningHTML() //TODO works for now but doesnt make much sense
+                for(let i = 0; i < 6; i++) {
+                    addGuess(correctGuess[i])
+                    game.move(correctGuess[i])
+                    board.position(game.fen())
+                    //TODO function for the above line? updateBoardState
+                }
+                checkGuessHTML()
             }
         </script>
         
@@ -113,8 +129,9 @@
                 game = new Chess()
                 game.move(intialPosition[0])
                 game.move(intialPosition[1])
-
-                board.position(game.fen())
+                
+                intialFen = game.fen()
+                board.position(intialFen)
             }
 
             
@@ -131,9 +148,8 @@
             }
             var board = Chessboard('chess-board', config)
             
-            var opStr = "e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6 h4 h6 Nf3 e6 Be2 Nf6"
-            //startChessle(opStr)
-            startChessle(opStr)
+            var opening_string = "b4 e5 Bb2 Bxb4 Bxe5 Nf6 Nf3 Nc6"
+            startChessle(opening_string)
             resetGame()
            
         </script>

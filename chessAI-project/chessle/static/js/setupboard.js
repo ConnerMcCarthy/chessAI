@@ -81,6 +81,8 @@ function addGuess (nextMove) {
     moveIndex += 1
 }
 
+//TODO can remove the first two guesses -- change that
+
 function removeGuess() {
     
     // If there are no guesses to remove -- do nothing
@@ -156,7 +158,7 @@ function checkGuess () {
 
         if (guessesRemaining === 0) {
             alert("You've run out of guesses! Game over!")
-            alert(`The right word was: "${correctGuessString}"`)
+            alert(`The right guess was: "${correctGuessString}"`)
         }
         return false
     }
