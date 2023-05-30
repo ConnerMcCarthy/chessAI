@@ -14,16 +14,14 @@
 v0.1
 ![v0.1](https://i.imgur.com/bOytSVU.png)
 
-
 ## Tools
 - Django 4.2.1
 - chessboard.js 1.0.0
 - chess.js 0.12.0
 
-Hosting
-- gunicorn
-- nginx
+Server
 - ec2
+- gunicorn + nginx
 
 ## Game Logic
 
