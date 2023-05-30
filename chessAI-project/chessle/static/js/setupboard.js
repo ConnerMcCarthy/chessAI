@@ -1,19 +1,49 @@
-const NUMBER_OF_GUESSES = 3;
+const NUMBER_OF_GUESSES = 5;
 const NUMBER_OF_MOVES = 6;
-let guessesRemaining = NUMBER_OF_GUESSES;
-let currentGuess = [];
-let moveIndex = 0;
-
-let openingString = "e4 c5 Nf3 Nc6 g3 g6 Bg2 Bg7";
-let opening = openingString.split(' ');
-
-let correctGuessString = "Nf3 Nc6 g3 g6 Bg2 Bg7";
-let correctGuess = correctGuessString.split(' ');
-
-let intialPositionString = "e4 c5";
-let intialPosition = intialPositionString.split(' ');
+var guessesRemaining = NUMBER_OF_GUESSES;
+var currentGuess = [];
+var moveIndex = 0;
+var intialPosition = null;
+var correctGuess = null;
 
 //TODO add CORRECT guesses to a list, add for loop to go to the latest correct position. 
+
+function startChessle( openingString ) {
+    //initGuessBoard()
+    
+    // (1, 2, 3, 4, 5, 6, 7, 8)
+    var opening = openingString.split(' ');
+    // (3, 4, 5, 6, 7, 8)
+    correctGuess = opening.slice(2,NUMBER_OF_MOVES + 2);
+    // (1, 2)
+    intialPosition = opening.slice(0,2);
+}
+
+function resetChessle() {
+    
+    let rows = document.getElementsByClassName("move-row")
+    //for row in rows
+    for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
+        let row = rows[i]   
+
+        for( let j = 0; j < NUMBER_OF_MOVES; j++) {
+            let box = row.children[j]
+            box.textContent = ""
+            
+            
+            let filledBox = "filled-box"
+            if (box.textContent.length > 3) {
+                filledBox = "filled-box-small"
+            }
+            box.classList.remove(filledBox)
+            box.style.backgroundColor = 'white'
+        }
+        
+    }
+    guessesRemaining = NUMBER_OF_GUESSES
+    currentGuess = []
+    moveIndex = 0
+}
 
 function initGuessBoard() {
     let guessboard = document.getElementById("guess-board");
@@ -46,11 +76,13 @@ function addGuess (nextMove) {
     let row = document.getElementsByClassName("move-row")[NUMBER_OF_GUESSES - guessesRemaining]
     let box = row.children[moveIndex]
     box.textContent = nextMove
-    box.classList.remove(filledBox)
+    box.classList.add(filledBox)
     currentGuess.push(nextMove)
     moveIndex += 1
 }
 
+
+//TODO removeGuess as a name isnt great -- use undo or something
 function removeGuess() {
     
     // If there are no guesses to remove -- do nothing
@@ -114,6 +146,7 @@ function checkGuess () {
         }, delay)
     }
 
+    let correctGuessString = correctGuess.join(' ')
     if (guessString === correctGuessString) {
         alert("You guessed right! Game over!")
         guessesRemaining = 0
@@ -125,10 +158,11 @@ function checkGuess () {
 
         if (guessesRemaining === 0) {
             alert("You've run out of guesses! Game over!")
-            alert(`The right word was: "${correctGuessString}"`)
+            alert(`The right guess was: "${correctGuessString}"`)
         }
         return false
     }
 }
 
+//TODO can remove but this loads the board in the right order
 initGuessBoard()
