@@ -44,7 +44,7 @@
         <!-- Defines chessle logic. Submitting full guesses or removing a guess. -->
         <!-- ---------------------------------------------------------------------- -->
         <script>
-            // resets the game if the guess is wrong
+            // Resets the game if the guess is wrong
             function checkGuessHTML() {
                 if (checkGuess() == false) {
                     //runs resetGame() with a delay to match the box coloring
@@ -53,9 +53,8 @@
                     }, 850)
                 }
             }
-            // undo last move
+
             function removeGuessHTML() {
-                
                 // Prevents undoing the first two moves
                 if (game.fen() === intialFen) {
                     return
@@ -67,7 +66,7 @@
 
             function requestOpeningHTML() {
                 let input = document.getElementById("myinput")
-                //print(opening_string)
+                
                 resetChessle()
                 startChessle(opening_string)
                 resetGame()

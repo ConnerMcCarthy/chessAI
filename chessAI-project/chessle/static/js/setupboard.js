@@ -81,8 +81,8 @@ function addGuess (nextMove) {
     moveIndex += 1
 }
 
-//TODO can remove the first two guesses -- change that
 
+//TODO removeGuess as a name isnt great -- use undo or something
 function removeGuess() {
     
     // If there are no guesses to remove -- do nothing
