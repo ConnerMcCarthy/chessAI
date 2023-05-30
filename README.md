@@ -1,4 +1,4 @@
-# chessAI Chessle
+# chessAI Chessle | https://chessai.xyz/chessle
 
 ## Goals 
 
