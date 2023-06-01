@@ -1,6 +1,11 @@
 /venv-chess
 /node_modules
 
+.gitignore
+
+*secret.txt
+*response.txt
+
 #Django
 *.log
 *.pot
