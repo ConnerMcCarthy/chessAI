@@ -14,7 +14,7 @@
 ## UI 
 v0.2
 ![v0.2](https://i.imgur.com/lFcym1O.png)
-![v0.2 analysis](https://i.imgur.com/lFcym1O.png)
+![v0.2 analysis](https://i.imgur.com/Fo2DAXd.png)
 
 ## Tools
 - Django 4.2.1
