@@ -94,13 +94,110 @@ body {
 .chessle-button.load {
     background-color: #4169ec;
 }
+.chessle-button.analyze {
+    background-color: #b479af;
+}
 
 .chessle-button.guess:hover {
     background-color: #3b8a3f;
 }
 .chessle-button.undo:hover {
-    background-color: #d43d32;
+    background-color: #c0362c;
 }
 .chessle-button.load:hover {
     background-color: #3254c5;
+}
+.chessle-button.analyze:hover {
+    background-color: #85497f;
+}
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+  
+/* Modal Content */
+.modal-content {
+background-color: #fefefe;
+margin: auto;
+padding: 20px;
+border: 1px solid #888;
+width: 80%;
+}
+
+/* The Close Button */
+.close {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+
+
+/* The tabs */
+#tab-container {
+overflow: hidden;
+border: 1px solid #ccc;
+background-color: #f1f1f1;
+}
+
+.tablink {
+background-color: #f1f1f1;
+float: left;
+border: none;
+outline: none;
+cursor: pointer;
+padding: 14px 16px;
+transition: 0.3s;
+font-size: 17px;
+}
+
+.tablink:hover {
+background-color: #ddd;
+}
+
+.tabcontent {
+padding: 6px 12px;
+border: 1px solid #ccc;
+}
+
+/* Custom analysis input and button */ 
+#custom-analysis-input {
+width: 100%; /* Adjust as needed */
+padding: 10px;
+margin: 10px 0;
+box-sizing: border-box;
+border: 1px solid #ccc;
+border-radius: 4px;
+}
+
+#custom-analysis-button {
+background-color: #4CAF50; /* Choose a color */
+color: white;
+padding: 10px 20px;
+margin: 10px 0;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+#custom-analysis-button:hover {
+background-color: #45a049; /* Choose a hover color */
 }

@@ -10,7 +10,27 @@
 
     <body>
         
-        
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="tab-container">
+                    <button class="tablink" onclick="switchTab('paragraph1')">Beginner Analysis</button>
+                    <button class="tablink" onclick="switchTab('paragraph2')">Expert Analysis</button>
+                    <button class="tablink" onclick="switchTab('custom-analysis-tab')">Custom Analysis</button>
+                    <!-- <button class="tablink" onclick="switchTab('paragraph2')">Paragraph 2</button> -->
+                </div>
+                <p id="paragraph1" class="tabcontent"></p>
+                <p id="paragraph2" class="tabcontent" style="display: none;"></p>
+                <div id = custom-analysis-tab class = "tabcontent" style="display:none;">
+                    <input id="custom-analysis-input" type="text" placeholder="What would you like to know about this position?">
+                    <button id="custom-analysis-button" onclick=get_custom_analysis()>Submit</button>
+                    <p id="paragraph3" class="tabcontent"></p>
+                </div>
+                
+                <!-- <p id="paragraph4" class="tabcontent" style="display: none;">Loading...</p>  -->
+            </div>
+        </div>
 
         <div class="container">
             
@@ -22,7 +42,8 @@
                 <button onclick = "checkGuessHTML()" class="chessle-button guess"> Guess </button>
                 <button onclick = "removeGuessHTML()" class="chessle-button undo"> Undo </button>
                 <button onclick = "cheat()" class="chessle-button load"> Cheat </button>
-                <!-- TODO <button class="chessle-button load "> Load Correct </button> TODO -->
+                <!-- TODO <button class="chessle-button load "> Load Correct </button>  -->
+                <button onclick = "openAnalysisWindow()" class="chessle-button analyze "> Analyze </button>
             </div>
             
             <div class ="right-container">
@@ -31,7 +52,7 @@
         </div>
 
         <div class = "about"> 
-            ChessAI Chessle v0.1 (not window size friendly) |&nbsp; <a href="https://github.com/ConnerMcCarthy/chessAI"> Github</a>
+            ChessAI Chessle v0.2 (not window size friendly) |&nbsp; <a href="https://github.com/ConnerMcCarthy/chessAI"> Github</a>
         </div>
         
         
@@ -65,8 +86,7 @@
             }
 
             function requestOpeningHTML() {
-                let input = document.getElementById("myinput")
-                
+
                 resetChessle()
                 startChessle(opening_string)
                 resetGame()
@@ -83,6 +103,72 @@
                     //TODO function for the above line? updateBoardState
                 }
                 checkGuessHTML()
+            }
+
+            async function fetch_analysis() {
+                var inputValue = document.getElementById('custom-analysis-input').value
+                const response = await fetch(`/api/get_analysis/?custom=${encodeURIComponent(opening_string + "\n" + inputValue)}`)
+                const data = await response.json()
+                analysis = data.analysis.replace(/\n/g, '\<br\>') //replace /n with <br> for html text
+                
+            }
+
+            //TODO maybe pass analysis instead of having it be a variable
+            async function get_custom_analysis() {
+                var paragraph3 = document.getElementById('paragraph3')
+                paragraph3.textContent = "Loading..."
+                await fetch_analysis()
+                paragraph3.innerHTML = analysis
+            }
+            
+            //TODO change this daily and move to an api maybe.
+            const beginner_analysis = 
+               "1. Center: Control of the d5 square <br><br> \
+                2. Squares: Control of the light squares in the center of the board <br><br> \
+                3. Development: Find more active pieces <br><br> \
+                4. King Safety: Castling to develop the rooks and bring the king to safety."
+            const expert_analysis = 
+               "1. Center: Control the center with pawns and pieces. <br><br> \
+                2. Squares: Outpost knight on e5, move pieces to open diagonals to pressure f6. <br><br> \
+                3. Development: Develop the c8 bishop and move the a8 rook to the center. <br><br> \
+                4. King Safety: Move the king to the queenside in order to castle and add protection."
+            
+            async function openAnalysisWindow() {
+                
+                var modal = document.getElementById('myModal')
+                var paragraph1 = document.getElementById('paragraph1')
+                var paragraph2 = document.getElementById('paragraph2')
+                var paragraph3 = document.getElementById('paragraph3')
+                
+                paragraph1.innerHTML = beginner_analysis
+                paragraph2.innerHTML = expert_analysis
+                
+                // Get the <span> element that closes the modal
+                var span = document.getElementsByClassName('close')[0]
+                span.onclick = function() {
+                    modal.style.display = 'none'
+                }
+                // Function to open the modal
+                function openModal() {
+                    modal.style.display = 'block'
+                }
+                
+                openModal()             
+            }
+
+            function switchTab(id) {
+                // Get the paragraphs
+                var tab1 = document.getElementById('paragraph1');
+                var tab2 = document.getElementById('paragraph2');
+                var tab3 = document.getElementById('custom-analysis-tab');
+
+                // Hide both paragraphs
+                tab1.style.display = 'none';
+                tab2.style.display = 'none';
+                tab3.style.display = 'none';
+
+                // Show the selected paragraph
+                document.getElementById(id).style.display = 'block';
             }
         </script>
         
@@ -148,6 +234,7 @@
             var board = Chessboard('chess-board', config)
             
             var opening_string = "b4 e5 Bb2 Bxb4 Bxe5 Nf6 Nf3 Nc6"
+            var analysis = "No analysis... Refresh to display"
             startChessle(opening_string)
             resetGame()
            
