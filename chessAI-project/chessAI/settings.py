@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0ejq@1x5&t3gm63eovy5_magu))2r%#mas#3-(un34ny3x+pwj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.chessai.xyz']
+ALLOWED_HOSTS = ['.chessai.xyz', '127.0.0.1']
 
 
 # Application definition
@@ -118,7 +118,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = 'chessle/static/'
 STATIC_ROOT = '/var/www/chessai.xyz/static'
 STATICFILES_DIRS = [
     'chessle/static',

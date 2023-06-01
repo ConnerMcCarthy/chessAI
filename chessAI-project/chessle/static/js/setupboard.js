@@ -11,9 +11,6 @@ var correctGuess = null;
 // TODO removeGuess removes a move not a full guess | name change maybe
 
 function startChessle( openingString ) {
-//TODO add CORRECT guesses to a list, add for loop to go to the latest correct position. 
-
-function startChessle( openingString ) {
     //initGuessBoard()
     
     // (1, 2, 3, 4, 5, 6, 7, 8)
