@@ -1,17 +1,17 @@
 const NUMBER_OF_GUESSES = 5;
 const NUMBER_OF_MOVES = 6;
-var guessesRemaining = NUMBER_OF_GUESSES;
+var guessesRemaining = NUMBER_OF_GUESSES; //Guesses remaining == -1 means game over
 var currentGuess = [];
 var lastGuess = [];
 var moveIndex = 0;
 var intialPosition = null;
 var correctGuess = null;
 
-//TODO add CORRECT guesses to a list, add for loop to go to the latest correct position. 
+// TODO figure out var vs let nonsense above 
+// TODO removeGuess removes a move not a full guess name change maybe
+// TODO board undo needs to substract from move index
 
 function startChessle( openingString ) {
-    //initGuessBoard()
-    
     // (1, 2, 3, 4, 5, 6, 7, 8)
     var opening = openingString.split(' ');
     // (3, 4, 5, 6, 7, 8)
@@ -45,27 +45,15 @@ function resetChessle() {
     currentGuess = []
     moveIndex = 0
 }
-
-function initGuessBoard() {
-    let guessboard = document.getElementById("guess-board");
-
-    for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
-        let row = document.createElement("div")
-        row.className = "move-row"
-        
-        for (let j = 0; j < NUMBER_OF_MOVES; j++) {
-            let box = document.createElement("div")
-            box.className = "move-box"
-            row.appendChild(box)
-        }
-
-        guessboard.appendChild(row)
-    }
-}
-
-//TODO add keyboard left to undo
 function addGuess (nextMove) {
+    //full guess
     if (moveIndex === NUMBER_OF_MOVES) {
+        moveIndex += 1
+        return
+    }
+    moveIndex += 1
+    //game over | return and dont change css
+    if (guessesRemaining == -1) {
         return
     }
 
@@ -75,24 +63,28 @@ function addGuess (nextMove) {
         filledBox = "filled-box-small"
     }
     let row = document.getElementsByClassName("move-row")[NUMBER_OF_GUESSES - guessesRemaining]
-    let box = row.children[moveIndex]
+    let box = row.children[moveIndex-1]
     box.textContent = nextMove
     box.classList.add(filledBox)
     currentGuess.push(nextMove)
-    moveIndex += 1
+    
 }
 
 
 //TODO removeGuess as a name isnt great -- use undo or something
 function removeGuess() {
-    
     // If there are no guesses to remove -- do nothing
     if (moveIndex < 1) {
         return
     }
+    moveIndex -= 1
+    // Game over | return and dont change css
+    if (guessesRemaining == -1) {
+        return
+    }
 
     let row = document.getElementsByClassName("move-row")[NUMBER_OF_GUESSES - guessesRemaining]
-    let box = row.children[moveIndex - 1]
+    let box = row.children[moveIndex]
 
     let filledBox = "filled-box"
     if (box.textContent > 3) {
@@ -101,7 +93,7 @@ function removeGuess() {
     box.textContent = ""
     box.classList.remove(filledBox)
     currentGuess.pop()
-    moveIndex -= 1
+    
 }
 
 function checkGuess () {
@@ -140,9 +132,9 @@ function checkGuess () {
     let correctGuessString = correctGuess.join(' ')
     //Correct guess
     if (guessString === correctGuessString) {
+        guessesRemaining = -1
         alert("You guessed right! Game over!")
-        guessesRemaining = 0
-        return
+        return true
     //Wrong guess
     } else {
         guessesRemaining -= 1
@@ -177,19 +169,25 @@ function loadCorrect() {
     }
 }
 
-//TODO can remove but this loads the board in the right order
-initGuessBoard()
-
 //Keyboard control
 document.addEventListener("keyup", (e) => {
-    //Nothing to undo
-    if (guessesRemaining == 0 || moveIndex == 0) {
+    
+    let pressedKey = e.key.toString()
+    console.log( pressedKey + " " + guessesRemaining + " " + moveIndex)
+    if (pressedKey === "Backspace" || pressedKey === "ArrowLeft" && moveIndex > 0) {
+        removeGuessHTML()
         return
     }
 
-    let pressedKey = e.key.toString()
-    if (pressedKey === "Backspace" || pressedKey === "ArrowLeft") {
-        removeGuessHTML()
+    
+    if (pressedKey === "ArrowRight" && guessesRemaining == -1) {
+        
+        if (moveIndex >= NUMBER_OF_MOVES) {
+            return
+        }
+        game.move(correctGuess[moveIndex])
+        board.position(game.fen())
+        moveIndex += 1
         return
     }
 
@@ -198,3 +196,22 @@ document.addEventListener("keyup", (e) => {
         return
     }
 })
+
+function initGuessBoard() {
+    let guessboard = document.getElementById("guess-board");
+
+    for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
+        let row = document.createElement("div")
+        row.className = "move-row"
+        
+        for (let j = 0; j < NUMBER_OF_MOVES; j++) {
+            let box = document.createElement("div")
+            box.className = "move-box"
+            row.appendChild(box)
+        }
+
+        guessboard.appendChild(row)
+    }
+}
+//TODO can remove but this loads the board in the right order
+initGuessBoard()

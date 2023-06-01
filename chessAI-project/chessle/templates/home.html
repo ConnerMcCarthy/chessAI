@@ -15,17 +15,27 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <div id="tab-container">
-                    <button class="tablink" onclick="switchTab('paragraph1')">Beginner Analysis</button>
-                    <button class="tablink" onclick="switchTab('paragraph2')">Expert Analysis</button>
+                    <button class="tablink" onclick="switchTab('beginner-tab')">Beginner Analysis</button>
+                    <button class="tablink" onclick="switchTab('expert-tab')">Expert Analysis</button>
                     <button class="tablink" onclick="switchTab('custom-analysis-tab')">Custom Analysis</button>
                     <!-- <button class="tablink" onclick="switchTab('paragraph2')">Paragraph 2</button> -->
                 </div>
-                <p id="paragraph1" class="tabcontent"></p>
-                <p id="paragraph2" class="tabcontent" style="display: none;"></p>
-                <div id = custom-analysis-tab class = "tabcontent" style="display:none;">
-                    <input id="custom-analysis-input" type="text" placeholder="What would you like to know about this position?">
+
+                <div id = "beginner-tab">
+                    <p class = "tabcontent"> Prompt: Give positional ideas in this opening at a beginner level. </p>
+                    <p id="beginner-text" class = "tabcontent"></p>
+                </div>
+                
+                <div id = "expert-tab" style="display: none;">
+                    <p class = "tabcontent"> Prompt: Give positional ideas in this opening at a expert level. </p>
+                    <p id="expert-text" class = "tabcontent"></p>
+                </div>
+                
+                
+                <div id = custom-analysis-tab style="display:none;">
+                    <input id="custom-analysis-input" type="text" placeholder="What would you like to know about this position? e.g. What advantages does black have? ">
                     <button id="custom-analysis-button" onclick=getCustomAnalysis()>Submit</button>
-                    <p id="paragraph3" class="tabcontent"></p>
+                    <p id="custom-text" class="tabcontent"></p>
                 </div>
                 
                 <!-- <p id="paragraph4" class="tabcontent" style="display: none;">Loading...</p>  -->
@@ -53,6 +63,7 @@
 
         <div class = "about"> 
             ChessAI Chessle v0.2 (not window size friendly) |&nbsp; <a href="https://github.com/ConnerMcCarthy/chessAI"> Github</a>
+            &nbsp;| tips: in analysis use left and right arrow keys to view the opening
         </div>
         
         
@@ -78,6 +89,7 @@
             function removeGuessHTML() {
                 // Prevents undoing the first two moves
                 if (game.fen() === intialFen) {
+                    console.log("This thingk")
                     return
                 }
                 removeGuess()
@@ -86,7 +98,6 @@
             }
 
             function requestOpeningHTML() {
-
                 resetChessle()
                 startChessle(opening_string)
                 resetGame()
@@ -106,8 +117,8 @@
             }
 
             async function fetch_analysis() {
-                var inputValue = document.getElementById('custom-analysis-input').value
-                const response = await fetch(`/api/get_analysis/?custom=${encodeURIComponent(opening_string + "\n" + inputValue)}`)
+                let inputValue = document.getElementById('custom-analysis-input').value
+                const response = await fetch(`/api/get_analysis/?custom=${encodeURIComponent(game.pgn() + "\n" + inputValue)}`)
                 const data = await response.json()
                 analysis = data.analysis.replace(/\n/g, '\<br\>') //replace /n with <br> for html text
                 
@@ -115,10 +126,10 @@
 
             //TODO maybe pass analysis instead of having it be a variable
             async function getCustomAnalysis() {
-                var paragraph3 = document.getElementById('paragraph3')
-                paragraph3.textContent = "Loading..."
+                let customText = document.getElementById('custom-text')
+                customText.textContent = "Loading... ~5 seconds"
                 await fetch_analysis()
-                paragraph3.innerHTML = analysis
+                customText.innerHTML = analysis
             }
             
             //TODO change this daily and move to an api maybe.
@@ -137,16 +148,16 @@
                 
                 cheat() //TODO temp
 
-                var modal = document.getElementById('myModal')
-                var paragraph1 = document.getElementById('paragraph1')
-                var paragraph2 = document.getElementById('paragraph2')
-                var paragraph3 = document.getElementById('paragraph3')
+                let modal = document.getElementById('myModal')
+                let beginner = document.getElementById('beginner-text')
+                let expert = document.getElementById('expert-text')
+                let custom = document.getElementById('custom-text')
                 
-                paragraph1.innerHTML = beginner_analysis
-                paragraph2.innerHTML = expert_analysis
+                beginner.innerHTML = beginner_analysis
+                expert.innerHTML = expert_analysis
                 
                 // Get the <span> element that closes the modal
-                var span = document.getElementsByClassName('close')[0]
+                let span = document.getElementsByClassName('close')[0]
                 span.onclick = function() {
                     modal.style.display = 'none'
                 }
@@ -154,20 +165,19 @@
                 function openModal() {
                     modal.style.display = 'block'
                 }
-                
                 openModal()             
             }
 
             function switchTab(id) {
                 // Get the paragraphs
-                var tab1 = document.getElementById('paragraph1');
-                var tab2 = document.getElementById('paragraph2');
-                var tab3 = document.getElementById('custom-analysis-tab');
+                let beginner = document.getElementById('beginner-tab');
+                let expert = document.getElementById('expert-tab');
+                let custom = document.getElementById('custom-analysis-tab');
 
                 // Hide both paragraphs
-                tab1.style.display = 'none';
-                tab2.style.display = 'none';
-                tab3.style.display = 'none';
+                beginner.style.display = 'none';
+                expert.style.display = 'none';
+                custom.style.display = 'none';
 
                 // Show the selected paragraph
                 document.getElementById(id).style.display = 'block';
@@ -197,7 +207,7 @@
 
             function onDrop (source, target) {
                 // see if the move is legal
-                var move = game.move({
+                let move = game.move({
                     from: source,
                     to: target,
                     promotion: 'q' // NOTE: always promote to a queen
@@ -207,11 +217,12 @@
                 if (move === null) return 'snapback'
 
                 // Adds the last half move in the current PNG
-                var pgnString = game.pgn().split(' ')
-                var len = pgnString.length
+                let pgnString = game.pgn().split(' ')
+                let len = pgnString.length
                 addGuess(pgnString[len-1]) //addGuess function in chessle.js
             }
 
+            //TODO maybe can just call loadPGN instead of defining a new chess
             function resetGame() {
                 game = new Chess()
                 game.move(intialPosition[0])
@@ -227,7 +238,7 @@
         // -------------------------------------------------------------------------
             var game = new Chess()
 
-            var config = {
+            let config = {
                 draggable: true,
                 position: 'start',
                 onDrop: onDrop,
@@ -235,7 +246,7 @@
             }
             var board = Chessboard('chess-board', config)
             
-            var opening_string = "b4 e5 Bb2 Bxb4 Bxe5 Nf6 Nf3 Nc6"
+            var opening_string = "f4 d5 Nf3 Nc6 e3 Bg4 Bb5 e6"
             var analysis = "No analysis... Refresh to display"
             startChessle(opening_string)
             resetGame()
