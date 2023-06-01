@@ -8,16 +8,46 @@ var intialPosition = null;
 var correctGuess = null;
 
 // TODO figure out var vs let nonsense above 
-// TODO removeGuess removes a move not a full guess name change maybe
-// TODO board undo needs to substract from move index
+// TODO removeGuess removes a move not a full guess | name change maybe
 
 function startChessle( openingString ) {
+//TODO add CORRECT guesses to a list, add for loop to go to the latest correct position. 
+
+function startChessle( openingString ) {
+    //initGuessBoard()
+    
     // (1, 2, 3, 4, 5, 6, 7, 8)
     var opening = openingString.split(' ');
     // (3, 4, 5, 6, 7, 8)
     correctGuess = opening.slice(2,NUMBER_OF_MOVES + 2);
     // (1, 2)
     intialPosition = opening.slice(0,2);
+}
+  
+function resetChessle() {
+    
+    let rows = document.getElementsByClassName("move-row")
+    //for row in rows
+    for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
+        let row = rows[i]   
+
+        for( let j = 0; j < NUMBER_OF_MOVES; j++) {
+            let box = row.children[j]
+            box.textContent = ""
+            
+            
+            let filledBox = "filled-box"
+            if (box.textContent.length > 3) {
+                filledBox = "filled-box-small"
+            }
+            box.classList.remove(filledBox)
+            box.style.backgroundColor = 'white'
+        }
+        
+    }
+    guessesRemaining = NUMBER_OF_GUESSES
+    currentGuess = []
+    moveIndex = 0
 }
 
 function resetChessle() {
@@ -130,6 +160,7 @@ function checkGuess () {
     }
 
     let correctGuessString = correctGuess.join(' ')
+    
     //Correct guess
     if (guessString === correctGuessString) {
         guessesRemaining = -1
@@ -149,7 +180,6 @@ function checkGuess () {
         return false
     }
 }
-
 // Replays correct guesses from the last guess players dont have to repeat moves
 function loadCorrect() {
     if (!lastGuess) {
