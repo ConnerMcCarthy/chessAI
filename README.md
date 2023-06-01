@@ -25,8 +25,8 @@ Server
 
 ## Game Logic
 
-- [home.html](https://github.com/ConnerMcCarthy/chessAI/blob/main/chessAI-project/chessle/templates/home.html)
+- [chessle.html](https://github.com/ConnerMcCarthy/chessAI/blob/main/chessAI-project/chessle/templates/home.html) 
 
-- [setupboard.js](https://github.com/ConnerMcCarthy/chessAI/blob/main/chessAI-project/chessle/static/js/setupboard.js)
+- [chessle.js](https://github.com/ConnerMcCarthy/chessAI/blob/main/chessAI-project/chessle/static/js/setupboard.js)
 
-
+(will update names)

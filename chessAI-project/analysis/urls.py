@@ -1,7 +1,7 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import MoveListView
+from . import views
 
-router = DefaultRouter()
-router.register(r'moves', MoveListView, basename='moves')
-urlpatterns = router.urls
+urlpatterns = [
+    path('get_analysis/', views.get_analysis, name='get_analysis'),
+]
+
