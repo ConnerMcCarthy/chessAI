@@ -46,17 +46,17 @@ function resetChessle() {
     moveIndex = 0
 }
 function addGuess (nextMove) {
-    //full guess
-    if (moveIndex === NUMBER_OF_MOVES) {
+    //game over
+    if (guessesRemaining == -1) {
         moveIndex += 1
         return
     }
-    moveIndex += 1
-    //game over | return and dont change css
-    if (guessesRemaining == -1) {
+    //full guess but game not over
+    if (moveIndex === NUMBER_OF_MOVES) {
         return
     }
-
+    
+    moveIndex += 1
     //Quick auto resize if move is 4 chars
     let filledBox = "filled-box"
     if (nextMove.length > 3) {
@@ -152,8 +152,6 @@ function checkGuess () {
 
 // Replays correct guesses from the last guess players dont have to repeat moves
 function loadCorrect() {
-    console.log(lastGuess[0])
-    console.log(moveIndex)
     if (!lastGuess) {
         return
     }
@@ -173,13 +171,11 @@ function loadCorrect() {
 document.addEventListener("keyup", (e) => {
     
     let pressedKey = e.key.toString()
-    console.log( pressedKey + " " + guessesRemaining + " " + moveIndex)
     if (pressedKey === "Backspace" || pressedKey === "ArrowLeft" && moveIndex > 0) {
         removeGuessHTML()
         return
     }
 
-    
     if (pressedKey === "ArrowRight" && guessesRemaining == -1) {
         
         if (moveIndex >= NUMBER_OF_MOVES) {
