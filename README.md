@@ -5,14 +5,15 @@
 1. Create website and chessboard :heavy_check_mark:
 2. Match opening moves :heavy_check_mark: 
 3. Add move validation and Chessle logic :heavy_check_mark:
-4. Clean UI w/ mobile support
-5. Daily opening generation w/ openai
-6. Custom analysis w/ openai
+4. Custom analysis w/ openai :heavy_check_mark:
+5. Clean UI w/ mobile support
+6. Daily opening generation w/ openai
+
 
 
 ## UI 
-v0.1
-![v0.1](https://i.imgur.com/bOytSVU.png)
+v0.2
+![v0.2](https://i.imgur.com/lFcym1O.png)
 
 ## Tools
 - Django 4.2.1
