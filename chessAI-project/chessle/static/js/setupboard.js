@@ -171,7 +171,7 @@ function loadCorrect() {
 document.addEventListener("keyup", (e) => {
     
     let pressedKey = e.key.toString()
-    if (pressedKey === "Backspace" || pressedKey === "ArrowLeft" && moveIndex > 0) {
+    if (pressedKey === "ArrowLeft" && moveIndex > 0) {
         removeGuessHTML()
         return
     }
@@ -211,3 +211,28 @@ function initGuessBoard() {
 }
 //TODO can remove but this loads the board in the right order
 initGuessBoard()
+
+//TODO change this daily and move to an api maybe.
+const beginner_analysis = 
+    "1. <b>Control the center</b>: One of the fundamental principles of chess is controlling the center. The pawns on d5 and e6 are doing this for Black, while White has moved their e and f pawns. <br><br> \
+    2. <b>Knight on f3</b>: By developing the knight to f3, White is aiming to control the center squares d4 and e5. This knight also provides additional control over the center, particularly the e5 square, and prepares for the potential castling. <br><br> \
+    3. <b>Bishop on b5</b>: This bishop move applies pressure on the knight on c6. This knight is a key defender of the d5 pawn, and the bishop's positioning may induce a weakness in Black's pawn structure if Black decides to break the pin with a pawn move like a6 or d7-d6. <br><br> \
+    4. <b>Bishop on b5</b>: This bishop move applies pressure on the knight on c6. This knight is a key defender of the d5 pawn, and the bishop's positioning may induce a weakness in Black's pawn structure if Black decides to break the pin with a pawn move like a6 or d7-d6. <br><br> \
+    5. <b>Pawn at f4</b>: White's pawn on f4 has opened up the possibility of a bishop development to the c1-h6 diagonal. This can become a sharp weapon, especially after castling. However, it's worth noting that this pawn could become a weakness in the future as it's not protected by other pawns and is on the half-open file, making it a potential target. <br><br> \
+    6. <b>Development and King safety</b>: It's also important to consider where each side may consider castling. At this point in the game, both players should be thinking about how to complete development, i.e., getting all of their pieces off the back rank and into the game. As a rule, you generally want to avoid moving the same piece multiple times in the opening to allow for efficient development. \
+    In summary, both sides should focus on piece development, control of the center, and preparing to castle for king safety. How they decide to deal with the bishop pins (Bb5 and Bg4) will significantly influence the pawn structure and potential imbalances in the position, which they can exploit in the middlegame."
+const expert_analysis = 
+    "1. <b>f4</b>: This is the Bird's Opening, aiming to control the e5 square and prepare for potential expansion on the kingside. <br><br> \
+    2. <b>Nf3</b>: A logical move that supports the control of the central e5 square, prepares for kingside castling, and allows for the queen's bishop to be developed. <br><br> \
+    3. <b>e3</b>: Solidifies the control over the d4 square, opens lines for the queen's bishop and queen, but limits the queen's knight's natural development square on d2. <br><br> \
+    4. <b>Bb5</b>: Pinning the knight to the king, and may be preparing to double the pawns after Bxc6. <br><br><br> \
+    Here are some strategic considerations and ideas after 4...e6 <br><br><br> \
+    1. The Black bishop on g4 pins the white knight on f3. An early h3 might be beneficial to break the pin and put the question to the bishop. <br><br> \
+    2. White's Bb5 move pins the knight, which could be a preparation to double Black's pawns with Bxc6. <br><br> \
+    3. White could consider d3 and Nbd2 for a solid setup, though this would allow Black the chance to play Bxf3 and damage White's pawn structure. <br><br> \
+    4. As for Black, the f6 square could be a suitable spot for the knight after e5 is played. The knight could also consider going to e7, aiming for f5 if White castles kingside.<br><br> \
+    5. The e6 move by Black has prepared to develop the light-squared bishop. It could be beneficial for Black to consider a setup with Nge7, Ng6, and Be7, aiming for O-O and preparing for e5 to challenge White's control of this key central square. <br><br> \
+    6. A typical plan for White in this position can be to castle kingside, push the central pawns with d3 and e4, aiming for a strong pawn center. <br><br> \
+    7. On the other hand, Black could aim for a quick ...e5, breaking in the center. After ...e5, if White responds with fxe5, Black has the option of ...Nxe5, bringing the knight to a very strong central square. <br><br> \
+    8. Finally, both sides should also consider the minority attack as a strategic plan for the future. For White, a3 and b4, for Black, ...a6 and ...b5 could become ideas to weaken the opponent's pawn structure on the queenside. <br><br> \
+    Remember, these are just ideas, and the best plan often depends on how your opponent responds to your moves!"

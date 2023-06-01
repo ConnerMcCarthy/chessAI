@@ -1,5 +1,8 @@
 body {
     background-color: #f2f2f2;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .container {
@@ -14,10 +17,12 @@ body {
 
 .about {
     display: flex;
-    width: 100%;
+    width: 80%;
     height: 10%;
     text-align: right;
     font-size: 20px;
+    margin-left: 40px;
+    margin-top: 40px;
 }
 
 .left-container, .right-container {
@@ -96,9 +101,11 @@ body {
 }
 .chessle-button.load {
     background-color: #4169ec;
+    white-space: nowrap;
 }
 .chessle-button.analyze {
     background-color: #af72aa;
+    margin-top: 40px;
 }
 
 .chessle-button.guess:hover {
@@ -157,7 +164,7 @@ cursor: pointer;
 /* The tabs */
 #tab-container {
 overflow: hidden;
-border: 1px solid #ccc;
+border: 2px solid #ccc;
 background-color: #f1f1f1;
 }
 
@@ -169,7 +176,8 @@ outline: none;
 cursor: pointer;
 padding: 14px 16px;
 transition: 0.3s;
-font-size: 17px;
+font-size: 19px;
+font-family: Arial;
 }
 
 .tablink:hover {
@@ -178,7 +186,9 @@ background-color: #ddd;
 
 .tabcontent {
 padding: 6px 12px;
-border: 1px solid #ccc;
+border: 2px solid #ccc;
+font-size: 17px;
+font-family: Arial;
 }
 
 /* Custom analysis input and button */ 

@@ -3,10 +3,14 @@ import openai
 
 openai.api_key = ''
 
+# TODO gpt-3.5 kinda bad at chess. 
+# assume legal moves
+# give it a fen if more than 5 or so moves
+# try to force positional analysis not calculation
 def get_analysis(request):
-    pgn = request.GET.get('opening', None)
+    opening = request.GET.get('opening', None)
     custom = request.GET.get('custom', None)
-    print(custom)
+
     if custom is not None:
         try:
             response = openai.ChatCompletion.create(
@@ -17,7 +21,7 @@ def get_analysis(request):
                 ]
             )
             analysis = response.choices[0]['message']['content'].strip()
-            print(f"analysis:\n {analysis}")
+            #print(f"analysis:\n {analysis}")
             return JsonResponse({"analysis": analysis})
     
     # Error handling
