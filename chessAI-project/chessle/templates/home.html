@@ -90,7 +90,6 @@
             function removeGuessHTML() {
                 // Prevents undoing the first two moves
                 if (game.fen() === intialFen) {
-                    console.log("This thingk")
                     return
                 }
                 removeGuess()
@@ -99,6 +98,8 @@
             }
 
             function requestOpeningHTML() {
+                let input = document.getElementById("myinput")
+
                 resetChessle()
                 startChessle(opening_string)
                 resetGame()
@@ -172,6 +173,7 @@
                 // Show the selected paragraph
                 document.getElementById(id).style.display = 'block';
             }
+          
         </script>
         
         <!-- ---------------------------------------------------------------------- -->
@@ -238,6 +240,7 @@
             
             var opening_string = "f4 d5 Nf3 Nc6 e3 Bg4 Bb5 e6"
             var analysis = "No analysis... Refresh to display"
+
             startChessle(opening_string)
             resetGame()
            

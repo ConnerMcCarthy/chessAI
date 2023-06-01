@@ -1,4 +1,4 @@
-# chessAI Chessle
+# chessAI Chessle | https://chessai.xyz/chessle
 
 ## Goals 
 
@@ -25,8 +25,8 @@ Server
 
 ## Game Logic
 
-- [home.html](https://github.com/ConnerMcCarthy/chessAI/blob/7670078d11e57e9127ca34dc4765a4407c6a6e6f/chessAI-project/chessle/templates/home.html)
+- [chessle.html](https://github.com/ConnerMcCarthy/chessAI/blob/main/chessAI-project/chessle/templates/home.html) 
 
-- [setupboard.js](https://github.com/ConnerMcCarthy/chessAI/blob/7670078d11e57e9127ca34dc4765a4407c6a6e6f/chessAI-project/chessle/static/js/setupboard.js)
+- [chessle.js](https://github.com/ConnerMcCarthy/chessAI/blob/main/chessAI-project/chessle/static/js/setupboard.js)
 
-
+(will update names)
