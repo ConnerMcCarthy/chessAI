@@ -24,7 +24,7 @@
                 <p id="paragraph2" class="tabcontent" style="display: none;"></p>
                 <div id = custom-analysis-tab class = "tabcontent" style="display:none;">
                     <input id="custom-analysis-input" type="text" placeholder="What would you like to know about this position?">
-                    <button id="custom-analysis-button" onclick=get_custom_analysis()>Submit</button>
+                    <button id="custom-analysis-button" onclick=getCustomAnalysis()>Submit</button>
                     <p id="paragraph3" class="tabcontent"></p>
                 </div>
                 
@@ -41,9 +41,9 @@
             <div id = "buttons" class="buttons">
                 <button onclick = "checkGuessHTML()" class="chessle-button guess"> Guess </button>
                 <button onclick = "removeGuessHTML()" class="chessle-button undo"> Undo </button>
-                <button onclick = "cheat()" class="chessle-button load"> Cheat </button>
-                <!-- TODO <button class="chessle-button load "> Load Correct </button>  -->
-                <button onclick = "openAnalysisWindow()" class="chessle-button analyze "> Analyze </button>
+                <button onclick = "loadCorrect()" class="chessle-button load "> Load Correct </button>
+                <button onclick = "cheat()" class="chessle-button analyze" style="margin-top: 30px;"> Cheat </button>
+                <button onclick = "openAnalysisWindow()" class="chessle-button analyze "> Analysis </button>
             </div>
             
             <div class ="right-container">
@@ -114,7 +114,7 @@
             }
 
             //TODO maybe pass analysis instead of having it be a variable
-            async function get_custom_analysis() {
+            async function getCustomAnalysis() {
                 var paragraph3 = document.getElementById('paragraph3')
                 paragraph3.textContent = "Loading..."
                 await fetch_analysis()
@@ -135,6 +135,8 @@
             
             async function openAnalysisWindow() {
                 
+                cheat() //TODO temp
+
                 var modal = document.getElementById('myModal')
                 var paragraph1 = document.getElementById('paragraph1')
                 var paragraph2 = document.getElementById('paragraph2')

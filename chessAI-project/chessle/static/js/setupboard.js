@@ -2,6 +2,7 @@ const NUMBER_OF_GUESSES = 5;
 const NUMBER_OF_MOVES = 6;
 var guessesRemaining = NUMBER_OF_GUESSES;
 var currentGuess = [];
+var lastGuess = [];
 var moveIndex = 0;
 var intialPosition = null;
 var correctGuess = null;
@@ -112,31 +113,21 @@ function checkGuess () {
         return
     }
 
-    //if (!WORDS.includes(guessString)) {
-    //    alert("Word not in list!")
-    //    return
-    //}
-
     for (let i = 0; i < NUMBER_OF_MOVES; i++) {
         let moveColor = ''
         let box = row.children[i]
-        //let move = currentGuess[i]
 
+        //Shades box green, yellow, or grey
         let movePosition = correctGuess.indexOf(currentGuess[i])
-        // is move in the correct guess
+
         if (movePosition === -1) {
             moveColor = 'grey'
         } else {
-            // or else the move is in the correct guess in some order 
             if (currentGuess[i] === correctGuess[i]) {
-                // shade green if correct order
                 moveColor = 'green'
             } else {
-                // shade box yellow if incorrect order
                 moveColor = 'yellow'
             }
-
-            //correctGuess[movePosition] = "#"
         }
 
         let delay = 100 * i
@@ -147,15 +138,18 @@ function checkGuess () {
     }
 
     let correctGuessString = correctGuess.join(' ')
+    //Correct guess
     if (guessString === correctGuessString) {
         alert("You guessed right! Game over!")
         guessesRemaining = 0
         return
+    //Wrong guess
     } else {
-        guessesRemaining -= 1;
-        currentGuess = [];
-        moveIndex = 0;
-
+        guessesRemaining -= 1
+        lastGuess = currentGuess
+        currentGuess = []
+        moveIndex = 0
+    //Out of guesses    
         if (guessesRemaining === 0) {
             alert("You've run out of guesses! Game over!")
             alert(`The right guess was: "${correctGuessString}"`)
@@ -164,5 +158,43 @@ function checkGuess () {
     }
 }
 
+// Replays correct guesses from the last guess players dont have to repeat moves
+function loadCorrect() {
+    console.log(lastGuess[0])
+    console.log(moveIndex)
+    if (!lastGuess) {
+        return
+    }
+    for (let i = moveIndex; i < NUMBER_OF_MOVES; i++) {
+        if (lastGuess[i] === correctGuess[i]) {
+            addGuess(lastGuess[i])
+            game.move(lastGuess[i])
+            board.position(game.fen())
+        //Stops after the first wrong move
+        } else {
+            return
+        }
+    }
+}
+
 //TODO can remove but this loads the board in the right order
 initGuessBoard()
+
+//Keyboard control
+document.addEventListener("keyup", (e) => {
+    //Nothing to undo
+    if (guessesRemaining == 0 || moveIndex == 0) {
+        return
+    }
+
+    let pressedKey = e.key.toString()
+    if (pressedKey === "Backspace" || pressedKey === "ArrowLeft") {
+        removeGuessHTML()
+        return
+    }
+
+    if (pressedKey === "Enter") {
+        checkGuessHTML()
+        return
+    }
+})

@@ -48,6 +48,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
 }
 
 .filled-box {
@@ -85,6 +86,8 @@ body {
     cursor: pointer;
     border-radius: 5px;
 }
+
+/* Colors! */
 .chessle-button.guess {
     background-color: #4CAF50;
 }
@@ -95,7 +98,7 @@ body {
     background-color: #4169ec;
 }
 .chessle-button.analyze {
-    background-color: #b479af;
+    background-color: #af72aa;
 }
 
 .chessle-button.guess:hover {
@@ -115,15 +118,15 @@ body {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    /*z-index: 1;  Sit on top */
     padding-top: 100px; /* Location of the box */
-    left: 0;
+    right: 0;
     top: 0;
-    width: 100%; /* Full width */
+    width: 60%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
 }
   
 /* Modal Content */
@@ -139,7 +142,7 @@ width: 80%;
 .close {
 color: #aaaaaa;
 float: right;
-font-size: 28px;
+font-size: 42px;
 font-weight: bold;
 }
 
