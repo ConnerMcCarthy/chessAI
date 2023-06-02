@@ -24,6 +24,7 @@ v0.2
 Server
 - ec2
 - gunicorn + nginx
+- https and secure
 
 ## Game Logic
 
