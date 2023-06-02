@@ -10,7 +10,6 @@
 6. Daily opening generation w/ openai
 
 
-
 ## UI 
 v0.2
 ![v0.2](https://i.imgur.com/lFcym1O.png)
