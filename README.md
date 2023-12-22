@@ -1,6 +1,13 @@
-# chessAI Chessle | https://chessai.xyz/chessle
+# https://chessai.xyz/chessle
 
-## Goals 
+## How To Play
+This is an open source Wordle-like chess game. Original Here: https://jackli.gg/chessle/
+
+The goal is to guess the correct chess opening. You will make moves for both black and white. To make a move drag the piece on the board.
+
+Analysis mode will allow you to ask questions about the position displayed on the board!
+
+## Project Goals 
 
 1. Create website and chessboard :heavy_check_mark:
 2. Match opening moves :heavy_check_mark: 
