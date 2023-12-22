@@ -7,12 +7,6 @@ var moveIndex = 0;
 var intialPosition = null;
 var correctGuess = null;
 
-// TODO figure out var vs let nonsense above 
-// TODO removeGuess removes a move not a full guess | name change maybe
-
-function startChessle( openingString ) {
-//TODO add CORRECT guesses to a list, add for loop to go to the latest correct position. 
-
 function startChessle( openingString ) {
     //initGuessBoard()
     
@@ -30,11 +24,11 @@ function resetChessle() {
     //for row in rows
     for (let i = 0; i < NUMBER_OF_GUESSES; i++) {
         let row = rows[i]   
-
+        
         for( let j = 0; j < NUMBER_OF_MOVES; j++) {
             let box = row.children[j]
             box.textContent = ""
-            
+
             
             let filledBox = "filled-box"
             if (box.textContent.length > 3) {
@@ -76,18 +70,18 @@ function resetChessle() {
     moveIndex = 0
 }
 function addGuess (nextMove) {
-    //game over
+    // game over
     if (guessesRemaining == -1) {
         moveIndex += 1
         return
     }
-    //full guess but game not over
+    // full guess but game not over
     if (moveIndex === NUMBER_OF_MOVES) {
         return
     }
     
     moveIndex += 1
-    //Quick auto resize if move is 4 chars
+    // auto resize if move is 4 chars
     let filledBox = "filled-box"
     if (nextMove.length > 3) {
         filledBox = "filled-box-small"
@@ -103,12 +97,12 @@ function addGuess (nextMove) {
 
 //TODO removeGuess as a name isnt great -- use undo or something
 function removeGuess() {
-    // If there are no guesses to remove -- do nothing
+    // If there are no guesses to remove do nothing
     if (moveIndex < 1) {
         return
     }
     moveIndex -= 1
-    // Game over | return and dont change css
+    // game over | return and dont change css
     if (guessesRemaining == -1) {
         return
     }
@@ -139,7 +133,7 @@ function checkGuess () {
         let moveColor = ''
         let box = row.children[i]
 
-        //Shades box green, yellow, or grey
+        // Shades box green, yellow, or grey
         let movePosition = correctGuess.indexOf(currentGuess[i])
 
         if (movePosition === -1) {
@@ -154,25 +148,25 @@ function checkGuess () {
 
         let delay = 100 * i
         setTimeout(()=> {
-            //shade box
+            // shade boxes with delays
             box.style.backgroundColor = moveColor
         }, delay)
     }
 
     let correctGuessString = correctGuess.join(' ')
     
-    //Correct guess
+    // Correct guess
     if (guessString === correctGuessString) {
         guessesRemaining = -1
         alert("You guessed right! Game over!")
         return true
-    //Wrong guess
+    // Wrong guess
     } else {
         guessesRemaining -= 1
         lastGuess = currentGuess
         currentGuess = []
         moveIndex = 0
-    //Out of guesses    
+    // Out of guesses    
         if (guessesRemaining === 0) {
             alert("You've run out of guesses! Game over!")
             alert(`The right guess was: "${correctGuessString}"`)
@@ -197,7 +191,7 @@ function loadCorrect() {
     }
 }
 
-//Keyboard control
+// Keyboard control
 document.addEventListener("keyup", (e) => {
     
     let pressedKey = e.key.toString()
@@ -242,7 +236,8 @@ function initGuessBoard() {
 //TODO can remove but this loads the board in the right order
 initGuessBoard()
 
-//TODO change this daily and move to an api maybe.
+//TODO generate dailychange this daily and move to an api
+//Statically generated from chatGPT 4
 const beginner_analysis = 
     "1. <b>Control the center</b>: One of the fundamental principles of chess is controlling the center. The pawns on d5 and e6 are doing this for Black, while White has moved their e and f pawns. <br><br> \
     2. <b>Knight on f3</b>: By developing the knight to f3, White is aiming to control the center squares d4 and e5. This knight also provides additional control over the center, particularly the e5 square, and prepares for the potential castling. <br><br> \
