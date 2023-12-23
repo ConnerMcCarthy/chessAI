@@ -15,7 +15,7 @@ Analysis mode will allow you to ask questions about the position displayed on th
 4. Custom analysis w/ openai :heavy_check_mark:
 5. Clean UI w/ mobile support
 6. Daily opening generation w/ openai
-7. chatGPT 4 API | Custom chess notation for improved analysis 
+7. GPT4 API | Custom chess notation for improved analysis 
 
 
 ## UI 
