@@ -15,6 +15,7 @@ Analysis mode will allow you to ask questions about the position displayed on th
 4. Custom analysis w/ openai :heavy_check_mark:
 5. Clean UI w/ mobile support
 6. Daily opening generation w/ openai
+7. chatGPT 4 API | Custom chess notation for improved analysis 
 
 
 ## UI 
@@ -38,4 +39,4 @@ Server
 
 - [chessle.js](https://github.com/ConnerMcCarthy/chessAI/blob/main/chessAI-project/chessle/static/js/setupboard.js)
 
-(will update names)
+(will update file names)
