@@ -25,6 +25,8 @@ v0.2
 ![v0.2 analysis](https://i.imgur.com/Fo2DAXd.png)
 
 ## Tools
+
+App
 - Django 4.2.1
 - chessboard.js 1.0.0
 - chess.js 0.12.0
